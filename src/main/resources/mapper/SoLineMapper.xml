@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hande.hzero.order.infra.mapper.SoLineMapper">
+
+    <update id="deleteSoLineByHeaderId">
+        UPDATE hodr_so_line
+        SET
+        so_header_id = -1,
+        object_version_number = object_version_number + 1
+        WHERE
+        1 = #{organizationId}
+        AND so_header_id = #{soHeaderId}
+    </update>
+
+    <select id="listSoLinesByHeaderId" resultType="com.hande.hzero.order.domain.entity.SoLine">
+        SELECT
+        so_line_id,
+        order_quantity_uom,
+        TRUNCATE(order_quantity,2),
+        TRUNCATE(unit_selling_price, 2),
+        description,
+        hi.item_code,
+        hi.item_description,
+        (order_quantity * unit_selling_price) as line_amount
+        FROM hodr_so_line hsl
+        LEFT JOIN hodr_item hi ON hsl.item_id = hi.item_id
+        WHERE
+        1 = #{organizationId}
+        AND so_header_id = #{soHeaderId}
+        AND so_header_id != -1
+        -- 根据行号升序
+        ORDER BY line_number
+    </select>
+
+    <insert id="createSoLine">
+        insert into hodr_so_line
+            (
+            so_header_id,
+            line_number,
+            item_id,
+            order_quantity,
+            order_quantity_uom,
+            <if test="soLine.description != null">
+                description,
+            </if>
+            <if test="soLine.addition1 != null">
+                addition1,
+            </if>
+            <if test="soLine.addition2 != null">
+                addition2,
+            </if>
+            <if test="soLine.addition3 != null">
+                addition3,
+            </if>
+            <if test="soLine.addition4 != null">
+                addition4,
+            </if>
+            <if test="soLine.addition5 != null">
+                addition5,
+            </if>
+            unit_selling_price,
+            created_by
+            )
+        values
+            (
+            #{soLine.soHeaderId},
+            (SELECT auto_increment FROM information_schema.`TABLES` WHERE table_name='hodr_so_line'),
+            (select item_id from hodr_item where item_code = #{soLine.itemCode}),
+            #{soLine.orderQuantity},
+            #{soLine.orderQuantityUom},
+            <if test="soLine.description != null">
+                #{soLine.description},
+            </if>
+            <if test="soLine.addition1 != null">
+                #{soLine.addition1},
+            </if>
+            <if test="soLine.addition2 != null">
+                #{soLine.addition2},
+            </if>
+            <if test="soLine.addition3 != null">
+                #{soLine.addition3},
+            </if>
+            <if test="soLine.addition4 != null">
+                #{soLine.addition4},
+            </if>
+            <if test="soLine.addition5 != null">
+                #{soLine.addition5},
+            </if>
+            #{soLine.unitSellingPrice},
+            #{soLine.createdBy}
+
+            )
+    </insert>
+
+    <update id="updateByHeaderId">
+        UPDATE hodr_so_line hsl
+        SET
+        hsl.object_version_number = hsl.object_version_number + 1,
+        item_id = (SELECT item_id FROM hodr_item WHERE item_code = #{soLine.itemCode}),
+        order_quantity = #{soLine.orderQuantity},
+        order_quantity_uom = #{soLine.orderQuantityUom},
+        unit_selling_price = #{soLine.unitSellingPrice},
+        description = #{soLine.description}
+
+        WHERE
+        so_line_id = #{soLine.soLineId}
+
+    </update>
+
+    <select id="getBySoLineId" resultType="com.hande.hzero.order.domain.entity.SoLine">
+        select
+        so_header_id,
+        so_line_id,
+        created_by
+        from
+        hodr_so_line
+        where
+        so_line_id = #{soLineId}
+        AND
+        -- 判断该单据行是否失效
+        so_header_id != -1
+
+    </select>
+
+    <update id="deleteBySoLineId">
+        update hodr_so_line
+        set
+        so_header_id = -1,
+        object_version_number = object_version_number + 1
+        where
+        so_line_id = #{soLineId}
+    </update>
+
+</mapper>

@@ -1,0 +1,13 @@
+
+Q
+java:S1068"4Remove this unused "FIELD_COMPANY_ID" private field.(Ó¢æ‘8ÿô©šÂ.
+S
+java:S1068 "6Remove this unused "FIELD_ORDER_STATUS" private field.(…¼”8ÿô©šÂ.
+R
+java:S1068!"5Remove this unused "FIELD_CUSTOMER_ID" private field.(ÑÈ‘ú8ÿô©šÂ.
+S
+java:S1068"6Remove this unused "FIELD_ORDER_NUMBER" private field.(İŸ×8ÿô©šÂ.
+S
+java:S1068"6Remove this unused "FIELD_SO_HEADER_ID" private field.(ö¤ä¦8ÿô©šÂ.
+V
+java:S1068"4Remove this unused "FIELD_ORDER_DATE" private field.(Ö¶çÈûÿÿÿÿ8ÿô©šÂ.

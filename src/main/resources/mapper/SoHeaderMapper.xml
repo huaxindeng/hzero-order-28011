@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hande.hzero.order.infra.mapper.SoHeaderMapper">
+
+    <select id="listSoHeader" resultType="com.hande.hzero.order.domain.entity.SoHeader"
+            >
+        SELECT
+        so_header_id,
+        order_number,
+        hcom.company_name,
+        hcus.customer_name,
+        order_date,
+        order_status,
+        (SELECT
+        -- 金额为空，则返回0
+        IFNULL(SUM(order_quantity * unit_selling_price),0)
+        AS order_amonut
+        FROM hodr_so_line hsl
+        where hsl.so_header_id = hsh.so_header_id
+        ) AS order_amount
+        FROM hodr_so_header hsh
+        LEFT JOIN hodr_company hcom ON hcom.company_id = hsh.company_id
+        LEFT JOIN hodr_customer hcus ON hcus.customer_id = hsh.customer_id
+        where 1 = #{organizationId}
+        <if test="params.companyId != null">
+            AND hsh.company_id = #{params.companyId}
+        </if>
+        <if test="params.customerId != null">
+            AND hsh.customer_id = #{params.customerId}
+        </if>
+        <if test="params.orderNumber != null">
+            AND hsh.order_number LIKE CONCAT(CONCAT('%', #{params.orderNumber}), '%')
+        </if>
+        <if test="params.orderStatus != null">
+            AND hsh.order_status = #{params.orderStatus}
+        </if>
+        <!--剔除失效订单-->
+        AND hsh.order_status != '失效'
+    </select>
+
+    <select id="getSoHeaderBySoHeaderId" resultType="com.hande.hzero.order.domain.entity.SoHeader">
+        SELECT
+        so_header_id,
+        order_number,
+        hcom.company_name,
+        hcus.customer_name,
+        order_date,
+        order_status,
+        hsh.created_by,
+        (SELECT
+        -- 金额为空，则返回0
+        IFNULL(SUM(order_quantity * unit_selling_price),0)
+        AS order_amonut
+        FROM hodr_so_line hsl
+        where hsl.so_header_id = hsh.so_header_id
+        ) AS order_amount
+        FROM hodr_so_header hsh
+        LEFT JOIN hodr_company hcom ON hcom.company_id = hsh.company_id
+        LEFT JOIN hodr_customer hcus ON hcus.customer_id = hsh.customer_id
+        where 1 = #{organizationId}
+        AND hsh.so_header_id = #{soHeaderId}
+        <!--剔除失效订单-->
+        AND hsh.order_status != '失效'
+
+    </select>
+
+    <update id="updateOrderStatusById">
+        UPDATE hodr_so_header
+        SET
+        order_status = #{orderStatus},
+        object_version_number = object_version_number + 1
+        WHERE
+        so_header_id = #{soHeaderId}
+    </update>
+
+    <update id="deleteSoHeaderById">
+        UPDATE hodr_so_header
+        SET
+        order_status = '失效',
+        object_version_number = object_version_number + 1
+        WHERE
+        1 = #{organizationId}
+        AND
+        so_header_id = #{soHeaderId}
+    </update>
+    
+    <select id="getAutoIncrementId" resultType="Long">
+        SELECT
+        auto_increment
+        FROM information_schema.`TABLES`
+        WHERE
+        table_name='hodr_so_header'
+    </select>
+
+    <insert id="createSoHeader">
+        INSERT INTO hodr_so_header
+            (order_number, company_id, order_date, customer_id, created_by)
+        VALUES
+            (#{orderNumber},
+            (SELECT company_id FROM hodr_company WHERE company_name = #{companyName}),
+            #{orderDate},
+            (SELECT customer_id FROM hodr_customer WHERE customer_name = #{customerName}),
+            #{createdBy}
+            )
+    </insert>
+
+    <update id="updateHeaderById">
+        UPDATE hodr_so_header
+        SET
+        object_version_number = object_version_number + 1,
+        order_date = #{orderDate},
+        company_id = (SELECT company_id FROM hodr_company WHERE company_name = #{companyName}),
+        customer_id = (SELECT customer_id FROM hodr_customer WHERE customer_name = #{customerName}),
+        object_version_number = object_version_number + 1
+        WHERE
+        so_header_id = #{soHeaderId}
+    </update>
+
+</mapper>
