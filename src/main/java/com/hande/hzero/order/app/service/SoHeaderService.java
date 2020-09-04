@@ -3,8 +3,14 @@ package com.hande.hzero.order.app.service;
 import com.hande.hzero.order.api.vo.SoHeaderSearchVO;
 import com.hande.hzero.order.api.vo.SoHeaderVO;
 import com.hande.hzero.order.domain.entity.SoHeader;
+import com.itextpdf.text.DocumentException;
 import io.choerodon.core.domain.Page;
 import io.choerodon.mybatis.pagehelper.domain.PageRequest;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author huaxin.deng@hand-china.com 2020-08-18 19:50:41
@@ -63,4 +69,32 @@ public interface SoHeaderService {
      * @return
      */
     SoHeaderVO updateBySoHeaderVO(SoHeaderVO soHeaderVO);
+
+    /**
+     * 导出订单数据
+     * @param organizationId
+     * @param params
+     * @param pageRequest
+     */
+    void exportOrders(Long organizationId,
+                      SoHeaderSearchVO params,
+                      PageRequest pageRequest,
+                      HttpServletRequest request,
+                      HttpServletResponse response);
+
+    /**
+     * 导入订单数据
+     * @param organizationId
+     * @param file
+     * @param request
+     */
+    void importOrders(Long organizationId, MultipartFile file, HttpServletRequest request) throws IOException;
+
+    /**
+     * 单据打印
+     * @param organizationId
+     * @param soHeaderId
+     * @param response
+     */
+    void createPDF(Long organizationId, SoHeaderSearchVO params, HttpServletResponse response) throws DocumentException, IOException;
 }

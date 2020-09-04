@@ -24,12 +24,6 @@ import javax.validation.constraints.NotNull;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Customer extends AuditDomain {
 
-    private static final String FIELD_CUSTOMER_ID = "customerId";
-    private static final String FIELD_CUSTOMER_NUMBER = "customerNumber";
-    private static final String FIELD_CUSTOMER_NAME = "customerName";
-    private static final String FIELD_COMPANY_ID = "companyId";
-    private static final String FIELD_ENABLED_FLAG = "enabledFlag";
-
     @Id
     @GeneratedValue
     @ApiModelProperty("表主键，自增")

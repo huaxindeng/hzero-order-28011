@@ -51,4 +51,9 @@ public class SoLineRepositoryImpl extends BaseRepositoryImpl<SoLine> implements 
     public void deleteBySoLineId(Long soLineId) {
         soLineMapper.deleteBySoLineId(soLineId);
     }
+
+    @Override
+    public int getMaxLineNumber(Long soHeaderId) {
+        return soLineMapper.getMaxLineNumber(soHeaderId);
+    }
 }

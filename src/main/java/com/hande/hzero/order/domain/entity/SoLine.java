@@ -24,20 +24,6 @@ import javax.persistence.Transient;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SoLine extends AuditDomain {
 
-    private static final String FIELD_SO_LINE_ID = "soLineId";
-    private static final String FIELD_SO_HEADER_ID = "soHeaderId";
-    private static final String FIELD_LINE_NUMBER = "lineNumber";
-    private static final String FIELD_ITEM_ID = "itemId";
-    private static final String FIELD_ORDER_QUANTITY = "orderQuantity";
-    private static final String FIELD_ORDER_QUANTITY_UOM = "ordeQuantityUom";
-    private static final String FIELD_UNIT_SELLING_PRICE = "unitSellingPrice";
-    private static final String FIELD_DESCRIPTION = "description";
-    private static final String FIELD_ADDITION1 = "addition1";
-    private static final String FIELD_ADDITION2 = "addition2";
-    private static final String FIELD_ADDITION3 = "addition3";
-    private static final String FIELD_ADDITION4 = "addition4";
-    private static final String FIELD_ADDITION5 = "addition5";
-
     @Id
     @GeneratedValue
     @ApiModelProperty("主键ID，自增")
@@ -66,6 +52,8 @@ public class SoLine extends AuditDomain {
     private String addition4;
     @ApiModelProperty("附加信息5")
     private String addition5;
+    @ApiModelProperty("创建人ID")
+    private Long createdBy;
 
     @Transient
     @ApiModelProperty("物料编码")
@@ -205,5 +193,33 @@ public class SoLine extends AuditDomain {
 
     public void setLineAmount(Double lineAmount) {
         this.lineAmount = lineAmount;
+    }
+
+    @Override
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    @Override
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    @Override
+    public String toString() {
+        return "SoLine{" +
+                "soLineId=" + soLineId +
+                ", soHeaderId=" + soHeaderId +
+                ", lineNumber=" + lineNumber +
+                ", itemId=" + itemId +
+                ", orderQuantity=" + orderQuantity +
+                ", orderQuantityUom='" + orderQuantityUom + '\'' +
+                ", unitSellingPrice=" + unitSellingPrice +
+                ", description='" + description + '\'' +
+                ", createdBy=" + createdBy +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemDescription='" + itemDescription + '\'' +
+                ", lineAmount=" + lineAmount +
+                '}';
     }
 }

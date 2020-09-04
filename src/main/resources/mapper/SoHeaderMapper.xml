@@ -5,7 +5,7 @@
     <select id="listSoHeader" resultType="com.hande.hzero.order.domain.entity.SoHeader"
             >
         SELECT
-        so_header_id,
+        hsh.so_header_id,
         order_number,
         hcom.company_name,
         hcus.customer_name,
@@ -21,6 +21,7 @@
         FROM hodr_so_header hsh
         LEFT JOIN hodr_company hcom ON hcom.company_id = hsh.company_id
         LEFT JOIN hodr_customer hcus ON hcus.customer_id = hsh.customer_id
+        LEFT JOIN hodr_so_line hsl ON hsl.so_header_id = hsh.so_header_id
         where 1 = #{organizationId}
         <if test="params.companyId != null">
             AND hsh.company_id = #{params.companyId}
@@ -30,6 +31,9 @@
         </if>
         <if test="params.orderNumber != null">
             AND hsh.order_number LIKE CONCAT(CONCAT('%', #{params.orderNumber}), '%')
+        </if>
+        <if test="params.itemId != null">
+            AND hsl.item_id = #{params.itemId}
         </if>
         <if test="params.orderStatus != null">
             AND hsh.order_status = #{params.orderStatus}
@@ -107,10 +111,16 @@
     <update id="updateHeaderById">
         UPDATE hodr_so_header
         SET
-        object_version_number = object_version_number + 1,
-        order_date = #{orderDate},
-        company_id = (SELECT company_id FROM hodr_company WHERE company_name = #{companyName}),
-        customer_id = (SELECT customer_id FROM hodr_customer WHERE customer_name = #{customerName}),
+
+        <if test="orderDate != null">
+            order_date = #{orderDate},
+        </if>
+        <if test="companyName != null">
+            company_id = (SELECT company_id FROM hodr_company WHERE company_name = #{companyName}),
+        </if>
+        <if test="customerName != null">
+            customer_id = (SELECT customer_id FROM hodr_customer WHERE customer_name = #{customerName}),
+        </if>
         object_version_number = object_version_number + 1
         WHERE
         so_header_id = #{soHeaderId}

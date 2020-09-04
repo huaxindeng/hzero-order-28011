@@ -56,4 +56,11 @@ public interface SoLineRepository extends BaseRepository<SoLine> {
      * @param soLineId
      */
     void deleteBySoLineId(Long soLineId);
+
+    /**
+     * 获取当前订单最大行号
+     * @param soHeaderId
+     * @return
+     */
+    int getMaxLineNumber(Long soHeaderId);
 }

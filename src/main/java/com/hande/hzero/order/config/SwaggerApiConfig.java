@@ -13,12 +13,19 @@ public class SwaggerApiConfig {
 
     public static final String SO_HEADER = "Hodr SoHeader";
     public static final String SO_LINE = "Hodr SoLine";
+    public static final String COMPANY = "Hodr Company";
+    public static final String ITEM = "Hodr Item";
+    public static final String CUSTOMER = "Hodr Customer";
 
     @Autowired
-    private SwaggerApiConfig(Docket docket){
+    public SwaggerApiConfig(Docket docket){
         docket.tags(
             new Tag(SO_HEADER, "订单头"),
-            new Tag(SO_LINE, "订单行")
+            new Tag(SO_LINE, "订单行"),
+            new Tag(COMPANY, "公司"),
+            new Tag(CUSTOMER, "客户"),
+            new Tag(ITEM, "物料")
+
         );
     }
 }

@@ -57,4 +57,11 @@ public interface SoLineMapper extends BaseMapper<SoLine> {
      * @param soLineId
      */
     void deleteBySoLineId(Long soLineId);
+
+    /**
+     * 获得当前订单订单行的最大行号
+     * @param soHeaderId
+     * @return
+     */
+    int getMaxLineNumber(Long soHeaderId);
 }

@@ -78,6 +78,7 @@ public class SoLineServiceImpl implements SoLineService {
         }
         soLine.setCreatedBy(nowRoleId);
         //3. 调用接口
+        soLine.setLineNumber(soLineRepository.getMaxLineNumber(soLine.getSoHeaderId())+1);
         soLineRepository.createSoLine(soLine);
 
     }

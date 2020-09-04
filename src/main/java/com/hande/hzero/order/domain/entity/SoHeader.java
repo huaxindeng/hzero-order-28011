@@ -25,13 +25,6 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SoHeader extends AuditDomain {
 
-    private static final String FIELD_SO_HEADER_ID = "soHeaderId";
-    private static final String FIELD_ORDER_NUMBER = "orderNumber";
-    private static final String FIELD_COMPANY_ID = "companyId";
-    private static final String FIELD_ORDER_DATE = "orderDate";
-    private static final String FIELD_ORDER_STATUS = "orderStatus";
-    private static final String FIELD_CUSTOMER_ID = "customerId";
-
     @Id
     @GeneratedValue
     @ApiModelProperty("主键，自增")

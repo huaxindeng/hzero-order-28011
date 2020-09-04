@@ -1,14 +1,17 @@
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\domain\entity\SoLine.java
-G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\infra\repository\impl\CustomerRepositoryImpl.java
-G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\infra\mapper\ItemMapper.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\domain\entity\Customer.java
+G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\domain\dto\RoleDTO.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\HzeroOrderApplication.java
+G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\app\service\impl\SoLineServiceImpl.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\infra\mapper\SoHeaderMapper.java
+G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\infra\constant\OrderStatusConstants.java
+G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\api\controller\v1\SoLineController.java
+G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\api\vo\SoHeaderVO.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\domain\dto\SoHeaderDTO.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\infra\repository\impl\SoLineRepositoryImpl.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\domain\repository\SoHeaderRepository.java
-G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\infra\repository\impl\CompanyRepositoryImpl.java
-G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\infra\mapper\CustomerMapper.java
+G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\infra\feign\fallback\RoleFeignClientFallback.java
+G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\app\service\SoLineService.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\domain\repository\CustomerRepository.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\domain\repository\SoLineRepository.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\config\SwaggerApiConfig.java
@@ -16,6 +19,7 @@ G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\domain\entit
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\domain\entity\Item.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\app\service\SoHeaderService.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\api\vo\SoHeaderSearchVO.java
+G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\infra\feign\RoleFeignClient.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\infra\repository\impl\SoHeaderRepositoryImpl.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\api\controller\v1\SoHeaderController.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\domain\entity\Company.java
@@ -23,6 +27,4 @@ G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\domain\repos
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\domain\repository\CompanyRepository.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\infra\mapper\SoLineMapper.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\config\OrderExtraDataManager.java
-G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\infra\repository\impl\ItemRepositoryImpl.java
-G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\infra\mapper\CompanyMapper.java
 G:\java\hzero\hzero-order-28011\src\main\java\com\hande\hzero\order\app\service\impl\SoHeaderServiceImpl.java

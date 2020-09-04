@@ -24,15 +24,6 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Item extends AuditDomain {
 
-    private static final String FIELD_ITEM_ID = "itemId";
-    private static final String FIELD_ITEM_CODE = "itemCode";
-    private static final String FIELD_ITEM_UOM = "itemUom";
-    private static final String FIELD_ITEM_DESCRIPTION = "itemDescription";
-    private static final String FIELD_SALEABLE_FLAG = "saleableFlag";
-    private static final String FIELD_START_ACTIVE_DATE = "startActiveDate";
-    private static final String FIELD_END_ACTIVE_DATE = "endActiveDate";
-    private static final String FIELD_ENABLED_FLAG = "enabledFlag";
-
     @Id
     @GeneratedValue
     @ApiModelProperty("表主键，自增")

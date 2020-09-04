@@ -6,6 +6,7 @@ import com.hande.hzero.order.config.SwaggerApiConfig;
 import com.hande.hzero.order.app.service.SoHeaderService;
 import com.hande.hzero.order.domain.entity.SoHeader;
 import com.hande.hzero.order.domain.repository.SoHeaderRepository;
+import com.itextpdf.text.DocumentException;
 import io.choerodon.core.domain.Page;
 import io.choerodon.core.iam.ResourceLevel;
 import io.choerodon.mybatis.pagehelper.domain.PageRequest;
@@ -19,6 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author huaxin.deng@hand-china.com 2020-08-18 19:27:38
@@ -79,8 +85,6 @@ public class SoHeaderController extends BaseController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //待测试
-
     @ApiOperation("保存订单")
     @Permission(level = ResourceLevel.SITE)
     @PutMapping("/save")
@@ -88,6 +92,41 @@ public class SoHeaderController extends BaseController {
                                                     @PathVariable("organizationId") Long organizationId,
                                                 @RequestBody SoHeaderVO soHeaderVO){
         return Results.success(soHeaderService.saveOrder(organizationId, soHeaderVO));
+    }
+
+    @ApiOperation("导出订单数据")
+    @Permission(level = ResourceLevel.SITE)
+    @PostMapping("/export")
+    public ResponseEntity<Void> exportOrders(@ApiParam(value = "租户ID", required = true)
+                                 @PathVariable("organizationId") Long organizationId,
+                                             @RequestBody SoHeaderSearchVO params,
+                                             PageRequest pageRequest,
+                                             HttpServletRequest request,
+                                             HttpServletResponse response){
+        soHeaderService.exportOrders(organizationId, params, pageRequest, request, response);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation("导入订单数据")
+    @Permission(level = ResourceLevel.SITE)
+    @PostMapping("/import")
+    public ResponseEntity<Void> importOrders(@ApiParam(value = "租户ID", required = true)
+                                                 @PathVariable("organizationId") Long organizationId,
+                                             @RequestParam("fileName") MultipartFile file,
+                                             HttpServletRequest request) throws IOException {
+        soHeaderService.importOrders(organizationId, file, request);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation("单据打印")
+    @Permission(level = ResourceLevel.SITE)
+    @PostMapping("/pdf")
+    public ResponseEntity<Void> createPDF(@ApiParam(value = "租户ID", required = true)
+                                              @PathVariable("organizationId") Long organizationId,
+                                          @RequestBody SoHeaderSearchVO params,
+                                          HttpServletResponse response) throws IOException, DocumentException {
+        soHeaderService.createPDF(organizationId, params, response);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

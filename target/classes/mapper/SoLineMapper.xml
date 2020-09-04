@@ -3,7 +3,7 @@
 <mapper namespace="com.hande.hzero.order.infra.mapper.SoLineMapper">
 
     <update id="deleteSoLineByHeaderId">
-        UPDATE hodr_so_line1
+        UPDATE hodr_so_line
         SET
         so_header_id = -1,
         object_version_number = object_version_number + 1
@@ -15,6 +15,7 @@
     <select id="listSoLinesByHeaderId" resultType="com.hande.hzero.order.domain.entity.SoLine">
         SELECT
         so_line_id,
+        line_number,
         order_quantity_uom,
         order_quantity,
         unit_selling_price,
@@ -33,7 +34,7 @@
     </select>
 
     <insert id="createSoLine">
-        insert into hodr_so_line1
+        insert into hodr_so_line
             (
             so_header_id,
             line_number,
@@ -64,10 +65,10 @@
         values
             (
             #{soLine.soHeaderId},
-            (SELECT auto_increment FROM information_schema.`TABLES` WHERE table_name='hodr_so_line'),
+            #{soLine.lineNumber},
             (select item_id from hodr_item where item_code = #{soLine.itemCode}),
             #{soLine.orderQuantity},
-            #{soLine.orderQuantityUom},
+            (select item_uom from hodr_item where item_ode = #{soLine.itemCode}),
             <if test="soLine.description != null">
                 #{soLine.description},
             </if>
@@ -88,7 +89,6 @@
             </if>
             #{soLine.unitSellingPrice},
             #{soLine.createdBy}
-
             )
     </insert>
 
@@ -130,5 +130,11 @@
         where
         so_line_id = #{soLineId}
     </update>
+
+    <select id="getMaxLineNumber" resultType="int">
+        SELECT IFNULL(max(line_number),0)
+        FROM hodr_so_line
+        WHERE so_header_id=#{soLine.soHeaderId}
+    </select>
 
 </mapper>

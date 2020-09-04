@@ -17,15 +17,33 @@ public class SoHeaderSearchVO {
     private Long customerId;
     @ApiModelProperty("订单编号")
     private String orderNumber;
+    @ApiModelProperty("物料ID")
+    private Long itemId;
     @ApiModelProperty("订单状态")
     private String orderStatus;
 
+    public SoHeaderSearchVO() {
+    }
+
+    public SoHeaderSearchVO(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public SoHeaderSearchVO(Long companyId, Long customerId, String orderNumber, Long itemId, String orderStatus) {
+        this.companyId = companyId;
+        this.customerId = customerId;
+        this.orderNumber = orderNumber;
+        this.itemId = itemId;
+        this.orderStatus = orderStatus;
+    }
+
     @Override
     public String toString() {
-        return "SoHeaderVO{" +
+        return "SoHeaderSearchVO{" +
                 "companyId=" + companyId +
-                ", consumerId=" + customerId +
+                ", customerId=" + customerId +
                 ", orderNumber='" + orderNumber + '\'' +
+                ", itemId=" + itemId +
                 ", orderStatus='" + orderStatus + '\'' +
                 '}';
     }
@@ -60,5 +78,13 @@ public class SoHeaderSearchVO {
 
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public Long getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 }
