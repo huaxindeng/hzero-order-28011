@@ -21,7 +21,6 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Company extends AuditDomain {
 
-    public static final String FIELD_COMPANY_NUMBER = "companyNumber";
     public static final String FIELD_COMPANY_NAME = "companyName";
     public static final String FIELD_ENABLED_FLAG = "enabledFlag";
 
