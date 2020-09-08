@@ -22,8 +22,6 @@ import javax.persistence.*;
 public class Company extends AuditDomain {
 
     public static final String FIELD_COMPANY_NAME = "companyName";
-
-
     public static final String FIELD_ENABLED_FLAG = "enabledFlag";
 
     @ApiModelProperty("表ID，主键，供其他表做外键")
