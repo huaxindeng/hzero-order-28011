@@ -28,6 +28,7 @@ public class Customer extends AuditDomain {
     @GeneratedValue
     @ApiModelProperty("表主键，自增")
     private Long customerId;
+
     @NotNull
     @ApiModelProperty("客户编号")
     private String customerNumber;
