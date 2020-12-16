@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hande.hzero.order.infra.mapper.CompanyMapper">
+
+    <select id="listCompany" resultType="com.hande.hzero.order.domain.entity.Company">
+        select
+        company_number, company_name
+        from
+        hodr_company
+        where
+        company_number LIKE CONCAT(CONCAT('%', #{companyNumber}), '%')
+        and
+        company_name LIKE CONCAT(CONCAT('%', #{companyName}), '%')
+        and
+        1 = #{organizationId}
+    </select>
+
+</mapper>

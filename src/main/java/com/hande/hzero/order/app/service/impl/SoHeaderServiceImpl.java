@@ -594,4 +594,9 @@ public class SoHeaderServiceImpl implements SoHeaderService {
         }
     }
 
+    public void testRebase() {
+        String rebase = "rebase";
+        System.out.println(rebase);
+    }
+
 }
