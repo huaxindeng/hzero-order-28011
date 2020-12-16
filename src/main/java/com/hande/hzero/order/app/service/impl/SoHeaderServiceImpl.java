@@ -594,4 +594,9 @@ public class SoHeaderServiceImpl implements SoHeaderService {
         }
     }
 
+    public void testMerge() {
+        String merge = "merge";
+        System.out.println(merge);
+    }
+
 }
